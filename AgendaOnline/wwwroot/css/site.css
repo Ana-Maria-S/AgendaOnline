@@ -1,0 +1,31 @@
+﻿body {
+    padding-top:      50px;
+    padding-bottom:   20px;
+    font-size: 16px;
+    background-color: white;
+}
+
+
+.body-content {
+    padding-left:  15px;
+    padding-right: 15px;
+}
+
+.siteTitleArea {
+    color: red;
+    font-size: x-large;
+    font-style: italic;
+}
+
+.nav a{
+    font-size: 1.4em;
+}
+.nav li{
+    padding-right:5px;
+}
+
+.navbar .container .navbar-brand {
+    color: #373535;
+    font-size: 40px;
+    margin: 8px 0;
+}
