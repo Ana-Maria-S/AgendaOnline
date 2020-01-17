@@ -29,3 +29,56 @@
     font-size: 40px;
     margin: 8px 0;
 }
+
+#detailsDiv {
+    margin-left: 100px;
+    direction: ltr;
+    display: inline-block;
+    margin-top: -50px
+}
+
+#itemsListDiv {
+
+    float: left;
+    display: inline-block;
+}
+.tableToDoItems {
+    border-collapse: separate;
+}
+
+
+.tableToDoItems th, td {
+    width:auto;
+    text-align: left;
+    padding: 20px;
+    font-size:20px;
+    background-color: inherit;
+}
+
+
+.selected {
+    background-color: cornflowerblue;
+}
+
+tr .unselected {
+    background-color: white;
+}
+
+.toDoChecked {
+    min-width: 17px;
+    min-height: 17px;
+}
+
+.toDoAttrLabel{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.toDoAttrValue {
+    font-size: 30px;
+}
+
+.detailsDiv {
+    padding: 15px 15px;
+    background-color: antiquewhite;
+}

@@ -21,6 +21,6 @@ namespace AgendaOnline.ViewModels
 
         [Required]
         public bool Done { get; set; }
-        
+
     }
 }

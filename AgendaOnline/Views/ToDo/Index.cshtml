@@ -3,39 +3,105 @@
 @{
     ViewData["Title"] = "Tasks";
 }
+<script type="text/javascript">
+
+    //apelez actiunea "DetaliiPartial" din controler si afisez rezultatul in pagina
+        function getItemDetails(id) {
+
+            $("#" + id).addClass("selected");
+            console.log(id);
+            setTimeout(function () { $("#" + id).removeClass("selected"); }, 2000);
+        
+        $.ajax({
+            url: '@Url.Action("DetaliiPartial")?id=' + id,
+            type: 'GET',
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+
+            },
+            success: function (result) {
+                $('#detailsDiv').hide();
+                $('#detailsDiv').html(result);
+                $("#detailsDiv").fadeIn("slow");
+            }
+        });
+    }
+
+    function sorteazaTabel(id,n) {
+    var   i, x, y = 0;
+    var tabelDeSortat = document.getElementById(id);
+    //Initial directia de sortare: ascendent
+    var directie = "ascendenta";
+    var notSorted = true;
+    var inregistrari = tabelDeSortat.rows;
+    var interschimbareNecesara = false;
+    var nrInterschimbari = 0;
+
+    while (notSorted) {
+
+        /*Loop prin toate inregistrarile*/
+        for (i = 1; i < (inregistrari.length - 1); i++) {
+
+            /*Se compara elementul curent cu urmatorul*/
+            x = inregistrari[i].getElementsByTagName("TD")[n];
+            y = inregistrari[i + 1].getElementsByTagName("TD")[n];
+
+            if (directie == "ascendenta") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    interschimbareNecesara = true;
+                    break;
+                }
+            } else if (directie == "descendenta") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    interschimbareNecesara = true;
+                    break;
+                }
+            }
+        }
+        if (interschimbareNecesara) {
+            /*Daca a fost nevoie de interschimbare, aceasta se efectueaza si se pune flagul notSorted pe true*/
+            inregistrari[i].parentNode.insertBefore(inregistrari[i + 1], inregistrari[i]);
+            notSorted = true;
+            nrInterschimbari++;
+        } else {
+            /*Daca nu s-a facut nicio interschimbare si directia e ascendenta se seteaza pe "descendenta" si se executa while-ul din nou*/
+            if (nrInterschimbari == 0 && directie == "ascendenta") {
+                directie = "descendenta";
+                notSorted = true;
+            }
+        }
+    }
+}
+</script>
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="jumbotron">
-    <p><a asp-action="Create">Create New</a></p>
+<div id="itemsListDiv">
+    <p style="text-align:'right'; font-size:25px"><a asp-action="Adauga">Adauga</a></p>
 
-    <table class="table">
-        @* <thead> *@
-        @* <tr> *@
-        @*     <th>@Html.ActionLink("Title",       "Index", new { sort = ViewBag.TitleSortParm })</th> *@
-        @*     <th>@Html.ActionLink("Description", "Index", new { sort = ViewBag.DescriptionSortParm })</th> *@
-        @*     <th>@Html.ActionLink("Date",        "Index", new { sort = ViewBag.DateSortParm })</th> *@
-        @*     <th>@Html.ActionLink("Status",      "Index", new { sort = ViewBag.StatusSortParm })</th> *@
-        @*     <th></th> *@
-        @* </tr> *@
-        @* </thead> *@
-
+    <table id="tabelToDo" class="tableToDoItems table">
         <tbody>
-        @foreach (var item in Model) {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                <td>@Html.DisplayFor(modelItem => item.Date)</td>
-                <td>@Html.DisplayFor(modelItem => item.Done)</td>
-                <td>
-                    <a asp-action="Edit"    asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete"  asp-route-id="@item.ID">Delete</a>
-                </td>
+                <th onclick=sorteazaTabel('tabelToDo',0)>Done</th>
+                <th onclick=sorteazaTabel('tabelToDo',1)>Titlu</th>
+                <th onclick=sorteazaTabel('tabelToDo',3)>Deadline</th>
             </tr>
-        }
+
+            @foreach (var item in Model)
+            {
+                <tr id="@item.ID" onClick=getItemDetails(@item.ID)>
+                    <td><input class="toDoChecked" type="checkbox" checked=@item.Done /></td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+ 
+                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
+
+                    <td>
+                        <a class="fa fa-trash-o" style="font-size:28px;color:red" asp-action="Sterge" asp-route-id="@item.ID"></a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 
-    @* <div>@Html.ActionLink("Download JSON", "GetJSON", new { sort = @ViewData["sortJSON"] })</div> *@
 </div>
+<div id="detailsDiv"></div>

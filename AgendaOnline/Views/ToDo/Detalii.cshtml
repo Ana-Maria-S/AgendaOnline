@@ -1,0 +1,19 @@
+﻿@model AgendaOnline.ViewModels.ToDoItemViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h1>Detalii</h1>
+<div  class="detailsDiv">
+    <div>
+        <div>
+            <partial name="ToDoItemAttribute" , model=@KeyValuePair.Create("Titlu", Model.Title); />
+            <partial name="ToDoItemAttribute" , model=@KeyValuePair.Create(nameof(Model.ID), Model.ID.ToString()); />
+            <partial name="ToDoItemAttribute" , model=@KeyValuePair.Create("Descriere", Model.Description); />
+            <partial name="ToDoItemAttribute" , model=@KeyValuePair.Create("Deadline", Model.Date.ToString()); />
+            <partial name="ToDoItemAttribute" , model=@KeyValuePair.Create(nameof(Model.Done), Model.Done.ToString()); />
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Editeaza", "Editeaza", new { id = Model.ID }, new { @style = "font-size:30px;font-weight:bold" })
+    </div>
+</div> 
