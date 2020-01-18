@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgendaOnline.Repository
 {
+    //Interfata folosita pentru repository-ul de To Do items
     public interface IToDoItemsRepository
     {
         List<ToDoItemViewModel> GetCurrentToDoItems();

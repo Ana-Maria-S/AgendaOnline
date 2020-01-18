@@ -4,14 +4,14 @@
     ViewData["Title"] = "Tasks";
 }
 <script type="text/javascript">
-
-    //apelez actiunea "DetaliiPartial" din controler si afisez rezultatul in pagina
+    //cod javascript trimis pe partea de client
+    //la executia acestei functii se apeleaza printr-un apel ajax actiunea "DetaliiPartial" din controler si se afiseaza rezultatul in pagina
         function getItemDetails(id) {
 
             $("#" + id).addClass("selected");
             console.log(id);
             setTimeout(function () { $("#" + id).removeClass("selected"); }, 2000);
-        
+
         $.ajax({
             url: '@Url.Action("DetaliiPartial")?id=' + id,
             type: 'GET',
@@ -27,6 +27,9 @@
         });
     }
 
+    //functie pentru sortarea tabelului
+    //se executa la click pe header
+    //n este indexul headerului din tabel
     function sorteazaTabel(id,n) {
     var   i, x, y = 0;
     var tabelDeSortat = document.getElementById(id);
@@ -75,7 +78,9 @@
 </script>
 
 <h2>@ViewData["Title"]</h2>
-
+@*se afiseaza toata lista de todo
+se afiseaza un link de stergere in dreptul fiecarui item
+la click pe item se apeleaza functia getItemDetails*@
 <div id="itemsListDiv">
     <p style="text-align:'right'; font-size:25px"><a asp-action="Adauga">Adauga</a></p>
 
@@ -92,7 +97,7 @@
                 <tr id="@item.ID" onClick=getItemDetails(@item.ID)>
                     <td><input class="toDoChecked" type="checkbox" checked=@item.Done /></td>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
- 
+
                     <td>@Html.DisplayFor(modelItem => item.Date)</td>
 
                     <td>

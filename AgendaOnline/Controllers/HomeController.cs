@@ -8,8 +8,6 @@ namespace AgendaOnline.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["message_short"] = "Bine ai venit";
-            ViewData["message_long"]  = "This simple web app is made using ASP.NET Core 2.1 MVC and hosted on Azure Cloud Services.";
             return View();
         }
 

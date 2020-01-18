@@ -16,7 +16,8 @@ namespace AgendaOnline
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IToDoItemsRepository, ToDoItemsRepositoryInMemory>();
+            //clasa ToDoItemsRepository va inlocui interfata IToDoItemsRepository prin dependency injection
+            services.AddSingleton<IToDoItemsRepository, ToDoItemsRepository>();
             
         }
 

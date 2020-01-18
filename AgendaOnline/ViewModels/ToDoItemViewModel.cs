@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AgendaOnline.ViewModels
 {
+    //Modelul pentru un ToDo Item
     public class ToDoItemViewModel
     {
         public long ID { get; set; }
